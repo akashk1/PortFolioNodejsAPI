@@ -12,8 +12,8 @@ exports.addTrade = async (req, res, next) => {
       success: false,
     });
   }
-  const userData = await TradeMethods.getUser(req.body_user_id);
-  const user = userData;
+  const user = await TradeMethods.getUser(req.body.user_id);
+  console.log(user);
   const security = TradeMethods.getSecurity(user, req);
   const tradingResponse = TradeMethods.sellAndBuyTrade(req, security, user);
   const { success } = tradingResponse;
