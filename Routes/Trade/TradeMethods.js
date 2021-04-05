@@ -1,5 +1,6 @@
 const User = require("../../models/User/User");
 const Trade = require("../../models/Trades/Trade");
+
 exports.getSecurity = (user, req) => {
   // console.log(user, 3);
   const securities = user.securities;

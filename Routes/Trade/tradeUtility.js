@@ -1,10 +1,18 @@
 const Trade = require("../../models/Trades/Trade");
 const User = require("../../models/User/User");
 const TradeMethods = require("./TradeMethods");
-
+const { validationResult } = require("express-validator");
 exports.addTrade = async (req, res, next) => {
+  const result = validationResult(req);
+  const hasErrors = !result.isEmpty();
+  console.log("update reached");
+  if (hasErrors) {
+    return res.status(400).json({
+      error: result.array(),
+      success: false,
+    });
+  }
   const userData = await TradeMethods.getUser(req.body_user_id);
-  console.log("update");
   const user = userData;
   const security = TradeMethods.getSecurity(user, req);
   const tradingResponse = TradeMethods.sellAndBuyTrade(req, security, user);
@@ -67,6 +75,15 @@ exports.getTrades = (req, res, next) => {
 };
 
 exports.updateTrade = async (req, res, next) => {
+  const result = validationResult(req);
+  const hasErrors = !result.isEmpty();
+  console.log("update reached");
+  if (hasErrors) {
+    return res.status(400).json({
+      error: result.array(),
+      success: false,
+    });
+  }
   const id = req.body.trade_id;
 
   const trade = await TradeMethods.getTrade(id);

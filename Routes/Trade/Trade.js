@@ -8,7 +8,11 @@ router.post(
 );
 
 router.get("/getAll", tradeUtility.getTrades);
-router.put("/update", tradeUtility.updateTrade);
+router.put(
+  "/update",
+  tradeValidator.validate("updateTrade"),
+  tradeUtility.updateTrade
+);
 router.get("/delete/:id", tradeUtility.deleteTrade);
 router.get("/:id", tradeUtility.getTrade);
 module.exports = router;
