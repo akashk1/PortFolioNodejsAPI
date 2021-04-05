@@ -13,7 +13,7 @@ exports.addTrade = async (req, res, next) => {
     });
   }
   const user = await TradeMethods.getUser(req.body.user_id);
-  console.log(user);
+
   const security = TradeMethods.getSecurity(user, req);
   const tradingResponse = TradeMethods.sellAndBuyTrade(req, security, user);
   const { success } = tradingResponse;
@@ -69,7 +69,7 @@ exports.getTrades = (req, res, next) => {
     }
     return res.status(200).json({
       success: true,
-      trades: results,
+      data: results,
     });
   });
 };
@@ -90,7 +90,7 @@ exports.updateTrade = async (req, res, next) => {
   const user = await TradeMethods.getUser(trade.user_id);
 
   const tradingResponse = TradeMethods.updateSecurity(user, trade, req);
-
+  console.log(tradingResponse);
   const { success } = tradingResponse;
   if (!success) {
     return res.status(400).json({
